@@ -8,7 +8,7 @@ import 'constans.dart';
 
 class ApiHelper{
    
-  static Future<Response> getProcedures() async {
+  static Future<Response> getAnimes() async {
 
     var url = Uri.parse('${Constans.apiUrl}/api/v1/');
     var response = await http.get(
