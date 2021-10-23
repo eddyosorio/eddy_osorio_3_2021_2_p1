@@ -12,7 +12,7 @@ class LoaderComponent extends StatelessWidget {
         width: 200,
         height: 100,
         decoration: BoxDecoration(
-          color: Colors.green[300],
+          color: Colors.grey[850],
           borderRadius: BorderRadius.circular(10)
         ),
         child: Column(
@@ -20,7 +20,9 @@ class LoaderComponent extends StatelessWidget {
           children: [
             CircularProgressIndicator(),
             SizedBox(height: 20,),
-            Text(text, style: TextStyle(fontSize: 20),),
+            Text(text, 
+            style: TextStyle(fontSize: 20,color: Colors.white),
+            ),
           ],
         ),
       ),

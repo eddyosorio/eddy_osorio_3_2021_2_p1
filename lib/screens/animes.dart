@@ -30,6 +30,8 @@ class _AnimeScreenState extends State<AnimeScreen> {
      return Scaffold(
          backgroundColor: Colors.black,
       appBar: AppBar(
+                backgroundColor: Colors.grey[800],
+
         title: Text('Animes'),
         actions: <Widget>[
           _isFiltered
@@ -46,10 +48,7 @@ class _AnimeScreenState extends State<AnimeScreen> {
       body: Center(
         child: _showLoader ? LoaderComponent(text: 'Por favor espere...') : _getContent(),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {},
-      ),
+  
     );
   }
 
@@ -138,94 +137,35 @@ Widget _getListView() {
           crossAxisCount: 2,
 
         children: _animes.map((e) {
-          /*return Card(
-            child: InkWell(
-              onTap: () => (){},
-              child: Container(
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(5),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      child: CachedNetworkImage(
-                        imageUrl: e.animeImg,
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                        fit: BoxFit.cover,
-                        height: 120,
-                        width: 80,
-                        placeholder: (context, url) => Image(
-                          image: AssetImage('assets/sinimagenanime.png'),
-                          height: 120,
-                          width: 80,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Column(
-                              children: [
-                                Text(
-                                  e.animeName, 
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                                              
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Icon(Icons.arrow_forward_ios),
-                  ],
-                ),
-              ),
-            ),
-          );*/
+         
             return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       margin: EdgeInsets.all(15),
-      elevation: 10,
-
-      // Dentro de esta propiedad usamos ClipRRect
+      elevation: 20,
       child: ClipRRect(
-
-        // Los bordes del contenido del card se cortan usando BorderRadius
         borderRadius: BorderRadius.circular(30),
-
-        // EL widget hijo que será recortado segun la propiedad anterior
         child: Column(
           children: <Widget>[
-
-            // Usamos el widget Image para mostrar una imagen
              ClipRRect(
                       child: CachedNetworkImage(
                         imageUrl: e.animeImg,
                         errorWidget: (context, url, error) => Icon(Icons.error),
                         fit: BoxFit.cover,
-                        height: 120,
-                        width: 80,
+                        height: 150,
+                        width: 200,
                         placeholder: (context, url) => Image(
                           image: AssetImage('assets/sinimagenanime.png'),
-                          height: 120,
-                          width: 80,
+                          height: 400,
+                          width: 400,
                         ),
                       ),
                     ),
-
-            // Usamos Container para el contenedor de la descripción
             Container(
-              padding: EdgeInsets.all(10),
+            //  padding: EdgeInsets.all(20),
               child:  Text(
                                   e.animeName, 
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.bold
                                   ),
                                 ),
@@ -252,7 +192,6 @@ Widget _getListView() {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text('Escriba las primeras letras del procedimiento'),
               SizedBox(height: 10,),
               TextField(
                 autofocus: true,
