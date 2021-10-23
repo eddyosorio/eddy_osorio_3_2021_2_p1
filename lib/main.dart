@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget{
             debugShowCheckedModeBanner: false,
 
         title: 'AnimesApp',
-      home: AnimeScreen() 
+      home:  AnimeScreen(     ) 
       );
     }
 }
