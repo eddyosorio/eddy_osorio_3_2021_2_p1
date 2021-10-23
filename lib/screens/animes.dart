@@ -7,6 +7,8 @@ import 'package:eddy_osorio_3_2021_2_p1/models/data_anime.dart';
 import 'package:flutter/material.dart';
 import 'package:eddy_osorio_3_2021_2_p1/models/response';
 
+import 'anime_detail_screen.dart';
+
 class AnimeScreen extends StatefulWidget {
 
   @override
@@ -140,8 +142,11 @@ Widget _getListView() {
          
             return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      margin: EdgeInsets.all(15),
       elevation: 20,
+      margin: EdgeInsets.all(15),
+              child: InkWell(
+              onTap: () => _goDetailAnime(e),
+               child: Container(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: Column(
@@ -172,6 +177,8 @@ Widget _getListView() {
             ),
           ],
         ),
+          ),
+            ),
       ));
         }).toList(),
       ),
@@ -238,4 +245,17 @@ void _filter() {
 
     Navigator.of(context).pop();
   }
+  
+  void _goDetailAnime (DataAnime dataAnime) async{
+   String? result = await Navigator.push(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => AnimeDetailScreen(data: dataAnime,)
+              )
+    );
+    if (result == 'yes') {
+      _getAnimes();
+    }
 }
+}
+

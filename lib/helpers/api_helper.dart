@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:eddy_osorio_3_2021_2_p1/models/data_anime.dart';
 import 'package:eddy_osorio_3_2021_2_p1/models/data_detail.dart';
+import 'package:eddy_osorio_3_2021_2_p1/models/detail_generated.dart';
 import 'package:http/http.dart' as http;
 import 'package:eddy_osorio_3_2021_2_p1/models/response';
 
@@ -53,14 +54,7 @@ class ApiHelper{
       return Response(isSuccess: false, message: body);
     }
 
-    List<DataDetail> list = [];    
     var decodedJson = jsonDecode(body);
-    if (decodedJson != null) {
-      for (var item in decodedJson['data']) {
-        list.add(DataDetail.fromJson(item));
-      }
-    }
-
-    return Response(isSuccess: true, result: list);
+    return Response(isSuccess: true, result: DetailGenerated.fromJson(decodedJson));
   }
 }

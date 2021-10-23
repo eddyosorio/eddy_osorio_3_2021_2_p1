@@ -1,8 +1,11 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:eddy_osorio_3_2021_2_p1/components/loader_component.dart';
 import 'package:eddy_osorio_3_2021_2_p1/helpers/api_helper.dart';
 import 'package:eddy_osorio_3_2021_2_p1/models/data_anime.dart';
+import 'package:eddy_osorio_3_2021_2_p1/models/data_detail.dart';
+import 'package:eddy_osorio_3_2021_2_p1/models/detail_generated.dart';
 import 'package:flutter/material.dart';
 import 'package:eddy_osorio_3_2021_2_p1/models/response';
 
@@ -16,7 +19,7 @@ class AnimeDetailScreen extends StatefulWidget {
 
 class _AnimeDetailScreenState extends State<AnimeDetailScreen> {
 bool _showLoader = false;
-   List<DataAnime> _detail = [];
+   late DetailGenerated _detail ;
 
   late DataAnime _anime;
 @override
@@ -40,7 +43,71 @@ bool _showLoader = false;
     
     );
   }
-
+ Widget _getContent() {
+     return _detail.details.length == 0 
+      ? _noContent()
+      : _getListView();
+  }
+Widget _getListView() {
+    return RefreshIndicator(
+      onRefresh: _getDetailAnime,
+    
+      child: ListView(
+     
+        children: _detail.details.map((e) {
+          return Card(
+            child: InkWell(
+              child: Container(
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(5),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Text(
+                                  e.fact,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                )
+                             
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ),
+                    Icon(Icons.arrow_forward_ios, size: 40,)
+                  ],
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ), 
+    );
+  }
+    Widget _noContent() {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.all(20),
+        child: Text(
+          'No se encontraron detalles para el anime',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
   Future<Null> _getDetailAnime() async {
     setState(() {
       _showLoader = true;
