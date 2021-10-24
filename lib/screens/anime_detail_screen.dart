@@ -31,9 +31,16 @@ bool _showLoader = false;
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+               
+     return 
+     
+     Scaffold(
+                backgroundColor: Colors.grey[300],
+
       appBar: AppBar(
         title: Text(_anime.animeName),
+                        backgroundColor: Colors.grey[800],
+
       ),
       body: Center(
         child: _showLoader 
@@ -48,51 +55,88 @@ bool _showLoader = false;
       ? _noContent()
       : _getListView();
   }
+
+  String _getDetailsFac(){
+    var textone="";
+       for(int i = 0; i < _detail.details.length; i++){
+               textone=textone +"\n\n" +_detail.details[i].fact;
+       }
+                  return textone;
+  }
 Widget _getListView() {
-    return RefreshIndicator(
+    return 
+      RefreshIndicator(
       onRefresh: _getDetailAnime,
-    
-      child: ListView(
-     
+    child: Column(
+      children: <Widget>[
+          ClipRRect(
+                      child: CachedNetworkImage(
+                        imageUrl: _anime.animeImg,
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        fit: BoxFit.cover,
+                        height: 400,
+                        width: 300,
+                        placeholder: (context, url) => Image(
+                          image: AssetImage('assets/sinimagenanime.png'),
+                          height: 400,
+                          width: 400,
+                        ),
+                      ),
+                    ),
+                    Container(
+                                      padding: EdgeInsets.all(15),
+
+                    child:Text("Información de interés", style: TextStyle(
+                            fontSize: 15,fontWeight: FontWeight.bold
+                          ),),),
+ Expanded(
+                   child: ListView(
         children: _detail.details.map((e) {
           return Card(
-            child: InkWell(
               child: Container(
                 margin: EdgeInsets.all(10),
                 padding: EdgeInsets.all(5),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                Text(
-                                  e.fact,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                )
-                             
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded( child:Text(
+                          e.fact, 
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),),
+                      ],
                     ),
-                    Icon(Icons.arrow_forward_ios, size: 40,)
+                  
                   ],
                 ),
               ),
-            ),
           );
         }).toList(),
-      ), 
-    );
+      ),
+ ),
+         /* Expanded(    
+      child:SingleChildScrollView(
+              child: Container(
+              
+                child: Row(
+                     mainAxisAlignment: MainAxisAlignment.center,
+
+            children: <Widget>[
+              Expanded(
+
+                  child: Text(_getDetailsFac(),style: TextStyle(fontSize: 15.0, color: Colors.black))),
+            ],
+          ),
+                ),
+              ),
+          ),*/
+      ],
+    ),
+      );
+    
   }
     Widget _noContent() {
     return Center(

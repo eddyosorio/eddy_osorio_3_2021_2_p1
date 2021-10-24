@@ -30,7 +30,7 @@ class _AnimeScreenState extends State<AnimeScreen> {
   @override
   Widget build(BuildContext context) {
      return Scaffold(
-         backgroundColor: Colors.black,
+         backgroundColor: Colors.grey,
       appBar: AppBar(
                 backgroundColor: Colors.grey[800],
 
